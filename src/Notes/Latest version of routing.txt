@@ -1,0 +1,79 @@
+Layout / Rootlayout.jsx
+
+import { Outlet } from "react-router-dom"
+import Navbar from "../Component/Navbar"
+
+const RootLayout = () => {
+  return (
+    <div>
+        <Navbar/>
+        <Outlet/>
+    </div>
+  )
+}
+
+export default RootLayout
+
+component/ Navbar.jsx
+
+import React from 'react'
+import {  NavLink } from 'react-router-dom'
+const Navbar = () => {
+  return (
+    <div className='navbar'>
+        <div>
+            <p className='logo'>LOGO</p>
+        </div>
+            <ul>
+                <NavLink to="/"><li>Home</li></NavLink>
+                <NavLink to="/about"><li>About</li></NavLink>
+                <NavLink to="/contact"><li>Contact</li></NavLink>
+                <NavLink to="/property"><li>Property</li></NavLink>
+            </ul>
+        <div>
+            <button>Login</button>
+        </div>  
+    </div>
+  )
+}
+export default Navbar
+
+APP.jsx
+import React from 'react'
+
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
+import Home from './Pages/Home'
+import About from './Pages/About'
+import Contact from './Pages/Contact'
+import Property from './Pages/Property'
+import RootLayout from './Layout/RootLayout'
+const App = () => {
+  const router=createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<RootLayout/>}>
+        <Route index element={<Home/>}/>
+        <Route path="home" element={<Home/>}/>
+        <Route path="about" element={<About/>}/>
+        <Route path="contact" element={<Contact/>}/>
+        <Route path="property" element={<Property/>}/>
+      </Route>
+
+    )
+  )
+  return (
+    <div >
+     <RouterProvider router={router}>
+     </RouterProvider>
+    </div>
+  )
+}
+
+export default App
+
+Main.jsx
+
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(<App/>);
